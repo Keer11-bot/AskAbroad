@@ -2,12 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Send, ArrowLeft, Users, Crown, Globe, MessageSquare, FileText, AlertCircle, Reply, X, Sparkles } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import { ref, push, onValue, off, query, orderByChild, startAt, set, remove, onDisconnect } from 'firebase/database';
+import { ref, push, onValue, query, orderByChild, startAt, set, remove, onDisconnect } from 'firebase/database';
 import { database } from '../config/firebase';
 import { Message, RoomUser } from '../types';
 import { countries } from '../data/countries';
 import Navbar from './Navbar';
-import io from 'socket.io-client';
 
 const ChatRoom: React.FC = () => {
   const { countryCode, category } = useParams<{ countryCode: string; category: string }>();
@@ -21,7 +20,6 @@ const ChatRoom: React.FC = () => {
   const [replyingTo, setReplyingTo] = useState<Message | null>(null);
   const [selectedMessage, setSelectedMessage] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const socketRef = useRef<any>(null);
 
   const country = countries.find(c => c.code === countryCode);
 
