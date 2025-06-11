@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MessageSquare, ArrowRight, Star, Users, Globe, MapPin, Sparkles } from 'lucide-react';
+import { MessageSquare, ArrowRight, Star, Globe, Sparkles } from 'lucide-react';
 import { getCountriesByCategory } from '../data/countries';
 import { useAuth } from '../contexts/AuthContext';
 import Navbar from './Navbar';
@@ -12,7 +12,7 @@ interface CountrySelectionProps {
 
 const CountrySelection: React.FC<CountrySelectionProps> = ({ category, onBack }) => {
   const navigate = useNavigate();
-  const { currentUser } = useAuth();
+  useAuth();
   const countries = getCountriesByCategory(category);
 
   const handleCountrySelect = (countryCode: string) => {
