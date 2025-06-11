@@ -2,6 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { X, Eye, EyeOff, User, UserCheck, Users, UserX, Phone, MessageCircle, Sparkles } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
+// Type declarations for Google Identity Services
+declare global {
+  interface Window {
+    google?: {
+      accounts: {
+        id: {
+          initialize: (config: {
+            client_id: string;
+            callback: (response: any) => void;
+            auto_select?: boolean;
+            cancel_on_tap_outside?: boolean;
+          }) => void;
+        };
+      };
+    };
+  }
+}
+
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -34,7 +52,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
     }
   }, [isOpen]);
 
-  const handleGoogleResponse = async (response: any) => {
+  const handleGoogleResponse = async (_response: any) => {
     try {
       setLoading(true);
       // The response contains the JWT token from Google
